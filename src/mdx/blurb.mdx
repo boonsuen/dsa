@@ -1,0 +1,41 @@
+import { Box, Link, Image } from 'theme-ui'
+
+先不要在乎失学失业什么的，想想晚餐吃些什么。咦，这**[@_wnxn](https://twitter.com/_wnxn)**是谁？
+
+<Box>
+  <Link
+    sx={{
+      display: "inline-block", 
+      bg: "primary",
+      px: 3,
+      py: 2,
+      mx: 2, 
+      my: 2, 
+      color: "white",
+      textDecoration: "none",
+      borderRadius: "4px",
+    }}
+    href="https://github.com/boonsuen"
+  >
+    View on Github
+  </Link>
+  <Link
+    sx={{
+      display: "inline-block", 
+      bg: "secondary",
+      px: 4,
+      py: 2,
+      mx: 2, 
+      my: 2, 
+      color: "white",
+      textDecoration: "none",
+      borderRadius: "4px",
+    }}
+    download
+    href="https://github.com/boonsuen"
+  >
+    <Image width="18" height="18" sx={{position:"relative", top:"2px", left: "-8px"}} src="/download.svg" alt="" />
+    不要点我哦
+  </Link>
+  
+</Box>

@@ -1,0 +1,85 @@
+---
+title: Two Sum
+excerpt: Given an array of integers, return the indices of the two numbers that add up to a given target.
+coverImage: '/img/blog/cover-two-sum.svg'
+coverImageAlt: 'Two Sum Cover'
+coverImageWidth: 1266
+coverImageHeight: 428
+date: '2021-05-25T14:26:35.251Z'
+---
+
+<Box sx={{p:4, textAlign: "center", bg: "secondary", color: "white", mb: 4 }}>I’m a Box component</Box>
+
+Syntax highlighting with [Prism React Renderer](https://github.com/FormidableLabs/prism-react-renderer).
+
+# Problem
+
+Given an array of integers, return the indices of the two numbers that add up to a given target.
+
+## The constraints
+
+- Are all the numbers positive or can there be negatives?
+    - All numbers are positive.
+- Are there duplicate numbers in the array?
+    - No, there are no duplicates.
+- Will there always be a solution available?
+    - No, there may not always be a solution.
+- What do we return if there's no solution?
+    - Just return null.
+- Can there be multiple pairs that add up to the target?
+    - No, only 1 pair of numbers will add up to the target.
+
+## Test Cases
+
+```jsx
+[1, 3, 7, 9, 2] t=11 [3,4]
+[1, 3, 7, 9, 2] t=25 null
+[] t=1 null
+[5] t=5 null
+[1, 6] t=7 [0,1]
+```
+
+# Solution
+
+Initial solution with $O(n^2)$ time complexity and $O(1)$ space complexity:
+
+```jsx
+const nums = [1, 3, 7, 9, 2];
+
+function twoSum(nums: number[], target: number): number[] {
+  for (let p1 = 0; p1 < nums.length; p1++) {
+    const numberToFind = target - nums[p1];
+    for (let p2 = p1+1; p2 < nums.length; p2++) {
+      if (numberToFind === nums[p2]) {
+        return [p1, p2];
+      }
+    }
+  }
+    
+  return null;
+};
+
+console.log(twoSum(nums, 11));
+```
+
+The nested loop is just for checking if the complement exists in the array, so we can use a hash map to reduce the look up time from O(n) to O(1). The map’s `key` is the number, the `value` is the number’s position.
+
+We iterate each element of the array. If the current element’s complement already exists in the map, we have found a solution. Otherwise we insert the element into the map.
+
+Optimal solution with $$O(n)$$ time complexity and $O(n)$ space complexity:
+
+```jsx
+const twoSum = (nums, target) => {
+  const numsMap = {};
+  for (let p = 0; p < nums.length; p++) {
+    const currentMapVal = numsMap[nums[p]];
+    if (currentMapVal >= 0) {
+      return [currentMapVal, p];
+    } else {
+      numsMap[target - nums[p]] = p;
+    }
+  }
+  return null;
+};
+```
+
