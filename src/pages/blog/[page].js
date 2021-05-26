@@ -27,6 +27,7 @@ export async function getStaticProps({ params }) {
     "coverImageWidth",
     "excerpt",
     "draft",
+    "difficulty"
   ])
 
   const pageIndex = parseInt(params.page) - 1

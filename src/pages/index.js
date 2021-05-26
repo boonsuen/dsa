@@ -27,6 +27,7 @@ export async function getStaticProps() {
     "coverImageWidth",
     "excerpt",
     "draft",
+    "difficulty"
   ])
 
   const startIndex = 0
