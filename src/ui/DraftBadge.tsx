@@ -6,12 +6,12 @@ const DraftBadge = (props) => (
     sx={{
       bg: "red",
       color: "white",
-      fontWeight: 400,
+      fontWeight: 300,
       fontSize: 0,
-      py: 2,
-      px: 2,
+      py: 0,
+      px: 1,
       position: "absolute",
-      top: "-3px",
+      top: "0px",
       left: "-60px",
       borderRadius: "2px",
     }}

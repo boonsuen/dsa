@@ -17,6 +17,7 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
             <th>#</th>
             <th>Title</th>
             <th>Difficulty</th>
+            <th>Topic</th>
           </tr>
         </thead>
         <tbody>
@@ -26,59 +27,25 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
             }).map((post, i) => (
               <tr key={`tr-${post.slug}`}>
                 <td>{i+1}</td>
-                  <td>
-                    <Link href={'/' + post.slug} passHref>
-                      <a>{post.title}</a>
-                    </Link>
-                  </td>
-                  <td>
-                  <code className="button medium" onClick="setUrl('Medium')">
+                <td style={{position: 'relative'}}>
+                  {post.draft && <DraftBadge />}
+                  <Link href={'/' + post.slug} passHref>
+                    <a>{post.title}</a>
+                  </Link>
+                </td>
+                <td>
+                  <code className="button medium">
                     {post.difficulty}
                   </code>
+                </td>
+                <td>
+                  {post.topic}
                 </td>
               </tr>
             ))
           }
         </tbody>
       </table>
-      {posts &&
-        posts
-          .filter((post) => {
-            return isLocal || !post.draft;
-          })
-          .map((post) => (
-            <Box sx={{ pb: 5 }} key={post.slug}>
-              <Heading sx={{ pb: 2, position: 'relative' }}>
-                {post.draft && <DraftBadge />}
-                <Link href={'/' + post.slug} passHref>
-                  <a>{post.title}</a>
-                </Link>
-              </Heading>
-              {post.coverImage && (
-                <Box
-                  sx={{
-                    mt: 2,
-                    mb: 3,
-                    border: '1px solid',
-                    borderColor: 'rgba(0,0,0,.1)',
-                  }}
-                >
-                  <Image
-                    height={post.coverImageHeight}
-                    width={post.coverImageWidth}
-                    src={post.coverImage}
-                    alt={post.coverImageAlt || ''}
-                  />
-                </Box>
-              )}
-              <Box sx={{ pb: 3 }}>
-                <MDX>{post.excerpt}</MDX>
-              </Box>
-              <Link href={'/' + post.slug} passHref>
-                <a>Read more...</a>
-              </Link>
-            </Box>
-          ))}
       <Flex sx={{ fontStyle: 'italic' }}>
         <Box sx={{ width: '50%', py: 3, textAlign: 'left' }}>
           {prevPosts !== null && (

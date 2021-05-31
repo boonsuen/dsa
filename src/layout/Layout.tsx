@@ -10,8 +10,8 @@ import Main from "../ui/Main"
 import Footer from "../ui/Footer"
 
 // inject inline styles on the body before the page is rendered to avoid the flash of light if we are in dark mode
-let codeToRunOnClient = false
-if (theme.colors.modes && theme.colors.modes.length !== 0) {
+let codeToRunOnClient: string = ''
+if (theme.colors.modes && Object.keys(theme.colors.modes).length !== 0) {
   codeToRunOnClient = `
   (function() {
     const theme = ${JSON.stringify(theme)}

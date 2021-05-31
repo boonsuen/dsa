@@ -5,7 +5,7 @@ import Nav from "./Nav"
 import Blurb from "../mdx/blurb.mdx"
 
 const Header = (props) => (
-  <MDXProvider>
+  <MDXProvider components={{}}>
     <Box as="header" sx={{ textAlign: "center", pt: 5 }}>
       <Heading sx={{ fontSize: 6, pb: 2, px: 3 }} as="h1">
         {config.title}
