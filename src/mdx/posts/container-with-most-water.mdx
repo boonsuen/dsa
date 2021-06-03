@@ -3,28 +3,33 @@ title: 'Container With Most Water'
 excerpt: 'Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). 
 n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). 
 Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.'
-coverImage: '/img/blog/cover-container-with-most-water.jpeg'
-coverImageAlt: 'Container With Most Water Cover'
-coverImageWidth: 960
-coverImageHeight: 480
-date: '2020-03-16T05:35:07.322Z'
 number: 11
 difficulty: 'Medium'
 topic: 'Array'
 ---
 
+<LeetCodeLink 
+  link="https://leetcode.com/problems/container-with-most-water/"
+  title="Container With Most Water - LeetCode" 
+  description="Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water."
+/>
+<div style={{padding: '15px'}}></div>
+
 # Problem
 
-Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). 
-n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). 
+Given n non-negative integers `a1, a2, ..., an`, where each represents a point at coordinate `(i, ai)`. 
+`n` vertical lines are drawn such that the two endpoints of the line `i` is at `(i, ai)` and `(i, 0)`. 
+
 Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
 
 # Solution
 
-Brute force solution
+## Brute Force Approach
 
-- Time complexity: $O(n^2)$
-- Space complexity: $O(1)$
+**Complexity Analysis**
+
+- Time complexity: <Math math="O(n^2)" />
+- Space complexity: <Math math="O(1)" />
 
 ```jsx
 const getMaxWaterContainer = heights => {
@@ -44,10 +49,12 @@ const getMaxWaterContainer = heights => {
 };
 ```
 
-Two pointer approach
+## Two Pointers Approach
 
-- Time complexity: $O(n)$
-- Space complexity: $O(1)$
+**Complexity Analysis**
+
+- Time complexity: <Math math="O(n)" />
+- Space complexity: <Math math="O(1)" />
 
 ```jsx
 const getMaxWaterContainer = heights => {

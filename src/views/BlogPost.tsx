@@ -8,6 +8,7 @@ import Container from "../ui/Container"
 import CodeBlock from "../ui/CodeBlock"
 import DraftBadge from "../ui/DraftBadge"
 import LeetCodeLink from '../ui/LeetCodeLink';
+import Math from '../ui/Math';
 
 const BlogPost = ({ post }) => {
   const isLocal = process.env.NODE_ENV === "development"
@@ -15,6 +16,7 @@ const BlogPost = ({ post }) => {
   const components = {
     Box: (props) => <Box {...props} />,
     LeetCodeLink: (props) => <LeetCodeLink {...props} />,
+    Math: (props) => <Math {...props} />,
     pre: (props) => <div {...props} />,
     code: CodeBlock,
   }

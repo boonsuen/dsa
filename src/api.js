@@ -37,7 +37,7 @@ export function getAllPosts(fields = []) {
   const slugs = getPostSlugs()
   const posts = slugs
     .map((slug) => getPostBySlug(slug, fields))
-    // sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? "-1" : "1"))
+    // sort posts by NUMBER in ascending order
+    .sort((post1, post2) => (post1.number > post2.number ? 1 : -1))
   return posts
 }

@@ -1,6 +1,5 @@
 import MDX from '@mdx-js/runtime';
 import { Flex, Box, Heading, Text } from 'theme-ui';
-import Image from 'next/image';
 import Container from '../ui/Container';
 import DraftBadge from '../ui/DraftBadge';
 import Link from 'next/link';
@@ -10,7 +9,9 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
 
   return (
     <Container>
-      <h1>Problems</h1>
+      <MDX>
+        # Problems
+      </MDX>
       <table id="table" className="leetcode-prob">
         <thead>
           <tr>
@@ -24,10 +25,6 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
           {
             posts && posts.filter((post) => {
               return isLocal || !post.draft;
-            }).sort((a, b) => {
-              if (a.number > b.number) return 1;
-              if (a.number < b.number) return -1;
-              return 0;
             }).map((post, i) => (
               <tr key={`tr-${post.slug}`}>
                 <td>{post.number}</td>
