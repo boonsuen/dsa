@@ -28,6 +28,9 @@ export async function getStaticProps({ params }) {
     "coverImageHeight",
     "coverImageWidth",
     "draft",
+    "number",
+    "difficulty",
+    "topic"
   ])
 
   return {

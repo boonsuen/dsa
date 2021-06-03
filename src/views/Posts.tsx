@@ -24,9 +24,13 @@ const Posts = ({ posts, prevPosts, nextPosts }) => {
           {
             posts && posts.filter((post) => {
               return isLocal || !post.draft;
+            }).sort((a, b) => {
+              if (a.number > b.number) return 1;
+              if (a.number < b.number) return -1;
+              return 0;
             }).map((post, i) => (
               <tr key={`tr-${post.slug}`}>
-                <td>{i+1}</td>
+                <td>{post.number}</td>
                 <td style={{position: 'relative'}}>
                   {post.draft && <DraftBadge />}
                   <Link href={'/' + post.slug} passHref>

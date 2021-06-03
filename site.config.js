@@ -8,5 +8,5 @@ module.exports = {
   shareImage: "https://nextjs-mdx-blog-starter.vercel.app/img/screenshot.png",
   shareImageAlt: "Next.js MDX Blog Starter Screenshot",
   postsPerPage: 8,
-  showDate: true, // if you would like the date to appear on the blog posts
+  showDate: false,
 }

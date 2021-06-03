@@ -7,12 +7,14 @@ import Image from "next/image"
 import Container from "../ui/Container"
 import CodeBlock from "../ui/CodeBlock"
 import DraftBadge from "../ui/DraftBadge"
+import LeetCodeLink from '../ui/LeetCodeLink';
 
 const BlogPost = ({ post }) => {
   const isLocal = process.env.NODE_ENV === "development"
 
   const components = {
     Box: (props) => <Box {...props} />,
+    LeetCodeLink: (props) => <LeetCodeLink {...props} />,
     pre: (props) => <div {...props} />,
     code: CodeBlock,
   }
