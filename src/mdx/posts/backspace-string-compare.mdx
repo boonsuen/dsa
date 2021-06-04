@@ -1,0 +1,137 @@
+---
+title: 'Backspace String Compare'
+excerpt: "Given two strings S and T, return if they equal when both are typed out. Any '#' that appears in the string counts as a backspace."
+number: 844
+difficulty: 'Easy'
+topic: 'String'
+---
+
+<LeetCodeLink
+  link="https://leetcode.com/problems/backspace-string-compare/"
+  title="Backspace String Compare - LeetCode"
+  description="Given two strings S and T, return if they equal when both are typed out. Any '#' that appears in the string counts as a backspace."
+/>
+<div style={{ padding: '15px' }}></div>
+
+# Problem
+
+Given two strings S and T, return if they equal when both are typed out. Any '#' that appears in the string counts as a backspace.
+
+`"ab#d" → "ad"`
+
+## The Constraints
+
+- What happens when two #'s appear beside each other?
+    - Delete the two values before the first #.
+- What happens to # when there is no character to remove?
+    - It deletes nothing then, just like backspace would.
+- Are two empty strings equal to each other?
+    - Yes, consider two empty strings as equal.
+- Does case sensitivity matter?
+    - Yes it does, "a" does not equal "A".
+
+# Solution
+
+## Build String Approach
+
+**Complexity Analysis**
+
+- Time complexity: <Math math="O(n + m)" />
+- Space complexity: <Math math="O(n + m)" />
+
+```jsx
+// My first try using reduce method
+const backspaceCompare = function (s, t) {
+  const buildString = string => {
+    return string.split('').reduce((acc, curr) => {
+      if (curr === '#') {
+        return acc.slice(0, -1);
+      } else {
+        return acc + curr;
+      }
+    }, '');
+  };
+
+  return buildString(s) === buildString(t);
+};
+```
+
+```jsx
+const buildString = function(string) {
+  const builtArray = [];
+  for (let p = 0; p < string.length; p++) {
+    if (string[p] !== '#') {
+      builtArray.push(string[p]);
+    } else {
+      builtArray.pop();
+    }
+  }
+  return builtArray;
+}
+
+const backspaceCompare = (s, t) => {
+  const finalS = buildString(s);
+  const finalT = buildString(t);
+
+  if (finalS.length !== finalT.length) {
+    return false;
+  } else {
+    for (let p = 0; p < finalS.length; p++) {
+      if (finalS[p] !== finalT[p]) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+```
+
+## Two pointers approach
+
+With two pointer technique (deciding when to move the pointers and what to do on each interaction), we can bring down the space complexity to <Math math="O(1)" />.
+
+**Complexity Analysis**
+
+- Time complexity: <Math math="O(n + m)" />
+- Space complexity: <Math math="O(1)" />
+
+```jsx
+const backspaceCompare = function (s, t) {
+  let p1 = s.length - 1;
+  let p2 = t.length - 1;
+  
+  while (p1 >= 0 || p2 >= 0) {
+    if (s[p1] === '#' || t[p2] === '#') {
+      if (s[p1] === '#') {
+        let backcount = 2;
+        while (backcount > 0) {
+          p1--;
+          backcount--;
+          if (s[p1] === '#') {
+            backcount += 2;
+          }
+        }
+      }
+      if (t[p2] === '#') {
+        let backcount = 2;
+        while (backcount > 0) {
+          p2--;
+          backcount--;
+          if (t[p2] === '#') {
+            backcount += 2;
+          }
+        }
+      }
+    } else {
+      if (s[p1] !== t[p2]) {
+        return false;
+      } else {
+        p1--;
+        p2--;
+      }
+    }
+  }
+
+  return true;
+};
+```
