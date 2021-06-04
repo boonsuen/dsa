@@ -10,6 +10,18 @@ const StyledTable = styled.table`
   margin: 1.25em 0 0;
   width: 100%;
 
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  th {
+    border-bottom: 1px solid #e2e2e2;
+  }
+
   th, td {
     padding: 10px 12px;
     text-align: left;

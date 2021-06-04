@@ -1,0 +1,85 @@
+---
+title: Valid Palindrome
+excerpt: Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+number: 125
+difficulty: 'Easy'
+topic: 'String'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/valid-palindrome/"
+  title="Valid Palindrome - LeetCode" 
+  description="Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given a string `s`, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
+
+```jsx
+Input: s = "A man, a plan, a canal: Panama"
+Output: true
+Explanation: "amanaplanacanalpanama" is a palindrome.
+```
+
+# Solution
+
+## Two pointers from outside
+
+```jsx
+const isPalindrome = s => {
+  s = s.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+  let left = 0;
+  let right = s.length - 1;
+
+  while (left < right) {
+    if (s[left] === s[right]) {
+      left++;
+      right--;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+};
+```
+
+## Two pointers from center
+
+```jsx
+const isPalindrome = s => {
+  s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+  let left = Math.floor(s.length / 2);
+  let right = left;
+
+  if(s.length % 2 === 0) {
+    left--;
+  }
+
+  while (left >= 0 && right < s.length) {
+    if (s[left] === s[right]) {
+      left--;
+      right++;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+};
+```
+
+## Compare against reverse
+
+```jsx
+const isPalindrome = s => {
+  s = s.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+  let rev = '';
+  for (let i = s.length - 1; i >= 0; i--) {
+    rev += s[i];
+  }
+  return s === rev;
+};
+```

@@ -1,6 +1,6 @@
 import React from "react"
 import Highlight, { defaultProps } from "prism-react-renderer"
-import github from "prism-react-renderer/themes/github"
+import nightOwl from "prism-react-renderer/themes/nightOwl"
 
 const CodeBlock = ({ children, className }) => {
   const language = className ? className.replace(/language-/, "") : "javascript"
@@ -9,7 +9,7 @@ const CodeBlock = ({ children, className }) => {
       {...defaultProps}
       code={children}
       language={language}
-      theme={github}
+      theme={nightOwl}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
