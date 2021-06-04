@@ -1,0 +1,185 @@
+---
+title: 'Trapping Rain Water'
+excerpt: 'Given an array of integers representing an elevation map where the width of each bar is 1, return how much rainwater can be trapped.'
+number: 42
+difficulty: 'Medium'
+topic: 'Array'
+---
+
+<LeetCodeLink
+  link="https://leetcode.com/problems/trapping-rain-water/"
+  title="Trapping Rain Water - LeetCode"
+  description="Given an array of integers representing an elevation map where the width of each bar is 1, return how much rainwater can be trapped."
+/>
+<div style={{ padding: '15px' }}></div>
+
+# Problem
+
+Given an array of integers representing an elevation map where the width of each bar is 1, return how much rainwater can be trapped.
+
+## The Constraints
+
+- Do the left and right sides of the graph count as walls?
+  - No, the sides are not walls.
+- Will there be negative integers?
+  - No, assume all integers are positive.
+
+## Test Cases
+
+<table style={{ width: 300, maxWidth: '100%' }}>
+  <thead
+    style={{
+      borderTop: '1px solid rgba(0 0 0 / 20%)',
+      borderBottom: '1px solid rgba(0 0 0 / 20%)',
+    }}
+  >
+    <tr 
+      style={{ 
+        color: '#5e6368', 
+        backgroundColor: '#f9f9f9',
+        height: '35px',
+      }}
+    >
+      <th style={{ 
+        padding: '0 10px', 
+        textAlign: 'left',
+        fontWeight: 500 }}>Input</th>
+      <th style={{ 
+        padding: '0 30px',
+        textAlign: 'left',
+        fontWeight: 500 }}>Output</th>
+    </tr>
+  </thead>
+  <tbody style={{ color: '#59595b', fontFamily: 'Fira Code' }}>
+    <tr style={{ height: '35px' }}>
+      <td style={{ padding: '0 10px' }}>[0,1,0,2,1,0,3,1,0,1,2]</td>
+      <td style={{ paddingLeft: '30px' }}>8</td>
+    </tr>
+    <tr 
+      style={{
+        backgroundColor: '#f9f9f9',
+        height: '35px'
+      }}
+    >
+      <td style={{ padding: '0 10px' }}>[]</td>
+      <td style={{ paddingLeft: '30px' }}>0</td>
+    </tr>
+    <tr style={{ height: '35px' }}>
+      <td style={{ padding: '0 10px' }}>[3]</td>
+      <td style={{ paddingLeft: '30px' }}>0</td>
+    </tr>
+    <tr 
+      style={{ 
+        backgroundColor: '#f9f9f9',
+        height: '35px'
+      }}
+    >
+      <td style={{ padding: '0 10px' }}>[3,4,3]</td>
+      <td style={{ paddingLeft: '30px' }}>0</td>
+    </tr>
+  </tbody>
+</table>
+<div style={{ padding: '15px' }}></div>
+
+# Solution
+
+## Brute Force Approach
+
+**Complexity Analysis**
+
+- Time complexity: <Math math="O(n^2)" />
+- Space complexity: <Math math="O(1)" />
+
+```jsx
+const trap = (heights) => {
+  let ans = 0;
+
+  for (let i = 0; i < heights.length; i++) {
+    let left_max = 0;
+    let right_max = 0;
+
+    for (let j = 0; j < i; j++) {
+      left_max = Math.max(left_max, heights[j]);
+    }
+
+    for (let j = i + 1; j < heights.length; j++) {
+      right_max = Math.max(right_max, heights[j]);
+    }
+
+    if (Math.min(left_max, right_max) - heights[i] >= 0) {
+      ans += Math.min(left_max, right_max) - heights[i];
+    }
+  }
+
+  return ans;
+};
+
+// -----------------
+const trap = function (heights) {
+  let totalWater = 0;
+
+  for (let p = 0; p < heights.length; p++) {
+    let leftP = p,
+      rightP = p,
+      maxLeft = 0,
+      maxRight = 0;
+
+    while (leftP >= 0) {
+      maxLeft = Math.max(maxLeft, heights[leftP]);
+      leftP--;
+    }
+
+    while (rightP < heights.length) {
+      maxRight = Math.max(maxRight, heights[rightP]);
+      rightP++;
+    }
+
+    const currentWater = Math.min(maxLeft, maxRight) - heights[p];
+
+    if (currentWater >= 0) {
+      totalWater += currentWater;
+    }
+  }
+
+  return totalWater;
+};
+```
+
+## Two Pointers Approach
+
+**Complexity Analysis**
+
+- Time complexity: <Math math="O(n)" />
+- Space complexity: <Math math="O(1)" />
+
+```jsx
+const trap = (heights) => {
+  let ans = 0;
+  let leftP = 0;
+  let rightP = heights.length - 1;
+  let leftMax = 0;
+  let rightMax = 0;
+
+  while (leftP < rightP) {
+    if (heights[leftP] <= heights[rightP]) {
+      if (heights[leftP] >= leftMax) {
+        leftMax = heights[leftP];
+      } else {
+        ans += leftMax - heights[leftP];
+      }
+
+      leftP++;
+    } else {
+      if (heights[rightP] >= rightMax) {
+        rightMax = heights[rightP];
+      } else {
+        ans += rightMax - heights[rightP];
+      }
+
+      rightP--;
+    }
+  }
+
+  return ans;
+};
+```
