@@ -1,0 +1,72 @@
+---
+title: Valid Palindrome II
+excerpt: Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+number: 680
+difficulty: 'Easy'
+topic: 'String'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/valid-palindrome-ii/"
+  title="Valid Palindrome II - LeetCode" 
+  description="Given a string s, return true if the s can be palindrome after deleting at most one character from it."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given a string `s`, return `true` if the `s` can be palindrome after deleting **at most one** character from it.
+
+```jsx
+Input: s = "abca"
+Output: true
+Explanation: You could delete the character 'c' or 'b'.
+```
+
+## Test Cases
+
+```jsx
+"raceacar" -> true
+"abccdba" -> true
+"abcdefdba" -> false
+"" -> true
+"a" -> true
+"ab" -> true
+```
+
+# Solution
+
+```jsx
+const validSubPalindrome = (s, left, right) => {
+  while (left < right) {
+    if (s[left] === s[right]) {
+      left++;
+      right--;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const isAlmostPalindrome = (s) => {
+  s = s.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+  let left = 0;
+  let right = s.length - 1;
+
+  while (left < right) {
+    if (s[left] !== s[right]) {
+      return (
+        validSubPalindrome(s, left, right - 1) ||
+        validSubPalindrome(s, left + 1, right)
+      );
+    } else {
+      left++;
+      right--;
+    }
+  }
+
+  return true;
+};
+```
