@@ -1,22 +1,19 @@
-import config from "../../site.config"
-import { MDXProvider } from "@mdx-js/react"
-import { Box, Heading } from "theme-ui"
-import Nav from "./Nav"
-import Blurb from "../mdx/blurb.mdx"
+import config from '../../site.config';
+import { MDXProvider } from '@mdx-js/react';
+import { Box, Heading } from 'theme-ui';
+import Nav from './Nav';
 
-const Header = (props) => (
+const Header = () => (
   <MDXProvider components={{}}>
-    <Box as="header" sx={{ textAlign: "center", pt: 5 }}>
-      <Heading sx={{ fontSize: 6, pb: 2, px: 3 }} as="h1">
+    <Box as="header" sx={{ textAlign: 'center', pt: 4 }}>
+      <Heading sx={{ fontSize: 3, pb: 2, px: 3 }} as="h1">
         {config.title}
       </Heading>
-      <Heading sx={{ pb: 3, px: [3, 4] }}>{config.subtitle}</Heading>
-      <Box sx={{ pb: 3 }}>
-        <Blurb />
-      </Box>
+      {/* <Title>{config.title}</Title> */}
+      <Heading sx={{ fontSize: 2, pb: 3, px: [3, 4] }}>{config.subtitle}</Heading>
       <Nav />
     </Box>
   </MDXProvider>
-)
+);
 
-export default Header
+export default Header;

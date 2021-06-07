@@ -5,6 +5,27 @@ const GlobalStyle = createGlobalStyle`
     font-family: "Fira Code", "JetBrains Mono", monospace;
     font-size: 13px;
   }
+
+  blockquote {
+    background-color: rgba(235, 236, 237, 0.3);
+    border-radius: 3px;
+    padding: 16px 12px;
+    margin: 16px 0;
+    font-family: "Ma Shan Zheng";
+
+    p {
+      margin-bottom: 0;
+    }
+
+    p::before {
+      content: "🏞";
+      margin-right: 0.5rem;
+    }
+
+    p:not(:last-child) { 
+      margin-bottom:1em; 
+    }
+  }
 `;
 
 const sizes = {
