@@ -6,7 +6,7 @@ const DocHead = (props) => (
   <>
     <Head>
       <title>{props.title}</title>
-      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+      <link rel="icon" href="/img/favicon.svg" />
       <link rel="canonical" href={props.url} />
       <meta name="description" content={props.description} />
       <meta property="og:title" content={props.title} />
