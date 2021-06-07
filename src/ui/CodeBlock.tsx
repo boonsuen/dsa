@@ -1,32 +1,102 @@
-import React from "react"
-import Highlight, { defaultProps } from "prism-react-renderer"
-import nightOwl from "prism-react-renderer/themes/nightOwl"
+import React from 'react';
+import Highlight, { defaultProps } from 'prism-react-renderer';
+import nightOwl from 'prism-react-renderer/themes/nightOwl';
+import styled from 'styled-components';
 
-const CodeBlock = ({ children, className }) => {
-  const language = className ? className.replace(/language-/, "") : "javascript"
+const Pre = styled.pre`
+  text-align: left;
+  margin: 1em 0;
+  padding: 0.5em;
+  overflow: scroll;
+`;
+
+const Line = styled.div`
+  display: table-row;
+`;
+
+const LineNo = styled.span`
+  display: table-cell;
+  text-align: right;
+  padding-right: 1em;
+  user-select: none;
+  opacity: 0.5;
+`;
+
+const LineContent = styled.span`
+  display: table-cell;
+`;
+
+type Language =
+  | 'markup'
+  | 'bash'
+  | 'clike'
+  | 'c'
+  | 'cpp'
+  | 'css'
+  | 'javascript'
+  | 'jsx'
+  | 'coffeescript'
+  | 'actionscript'
+  | 'css-extr'
+  | 'diff'
+  | 'git'
+  | 'go'
+  | 'graphql'
+  | 'handlebars'
+  | 'json'
+  | 'less'
+  | 'makefile'
+  | 'markdown'
+  | 'objectivec'
+  | 'ocaml'
+  | 'python'
+  | 'reason'
+  | 'sass'
+  | 'scss'
+  | 'sql'
+  | 'stylus'
+  | 'tsx'
+  | 'typescript'
+  | 'wasm'
+  | 'yaml';
+
+const CodeBlock = ({
+  children,
+  className,
+}: {
+  children: string;
+  className: string;
+}) => {
+  const language = className
+    ? className.replace(/language-/, '')
+    : 'javascript';
+
   return (
     <Highlight
       {...defaultProps}
-      code={children}
-      language={language}
+      code={children.replace(/\n$/, '')}
+      language={language as Language}
       theme={nightOwl}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre
+        <Pre
           className={className}
-          style={{ ...style, padding: "20px", marginBottom: "32px" }}
+          style={{ ...style, padding: '20px', marginBottom: '32px' }}
         >
           {tokens.map((line, i) => (
-            <div key={i} {...getLineProps({ line, key: i })}>
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token, key })} />
-              ))}
-            </div>
+            <Line key={i} {...getLineProps({ line, key: i })}>
+              <LineNo>{i + 1}</LineNo>
+              <LineContent>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token, key })} />
+                ))}
+              </LineContent>
+            </Line>
           ))}
-        </pre>
+        </Pre>
       )}
     </Highlight>
-  )
-}
+  );
+};
 
-export default CodeBlock
+export default CodeBlock;
