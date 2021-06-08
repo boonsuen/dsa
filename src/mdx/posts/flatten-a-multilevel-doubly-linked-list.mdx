@@ -1,0 +1,81 @@
+---
+title: Flatten a Multilevel Doubly Linked List
+excerpt: You are given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more children of their own, and so on.
+number: 430
+difficulty: 'Medium'
+topic: 'Linked List'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/flatten-a-multilevel-doubly-linked-list/"
+  title="Flatten a Multilevel Doubly Linked List" 
+  description="You are given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more children of their own, and so on."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given a doubly linked list which in addition to the next and previous pointers, it could have a child pointer, which may or may not point to a separate doubly linked list. These child lists may have one or more child doubly linked lists of their own, and so on, to produce a multilevel data structure.
+
+Flatten the list so that all the nodes appear in a single-level, doubly linked list. You are given the head of the first level of the list.
+
+## The Constraints
+
+- Can a doubly linked list have multiple child list nodes?
+    - Yes, every list node can have multiple levels of children.
+- What do we do with child properties after flattening?
+    - Just set the child property value to null.
+
+## Test Cases
+
+```jsx
+1---2---3---4---5---6
+    |           |  
+    7---8---9   12--13
+        |
+        10--11
+
+1-2-7-8-10-11-9-3-4-5-12-13-6
+```
+
+# Solution
+
+## Iterative Approach
+
+**Complexity Analysis**
+
+- Time complexity: <InlineMath math="O(n)" />
+- Space complexity: <InlineMath math="O(1)" />
+
+```typescript
+const flatten = (head: Node | null): Node | null => {
+  if (head === null) return head;
+
+  let p = head;
+
+  while (p !== null) {
+    // Without child
+    if (p.child === null) {
+      p = p.next;
+      continue;
+    }
+    // With child
+    let tail = p.child;
+    while (tail.next !== null) {
+      tail = tail.next;
+    }
+    tail.next = p.next;
+
+    if (p.next !== null) {
+      p.next.prev = tail;
+    }
+
+    p.next = p.child;
+    p.child.prev = p;
+    p.child = null;
+    p = p.next;
+  }
+
+  return head;
+};
+```

@@ -7,6 +7,6 @@ module.exports = {
   analytics: "UA-196424551-1",
   shareImage: "https://nextjs-mdx-blog-starter.vercel.app/img/screenshot.png",
   shareImageAlt: "Next.js MDX Blog Starter Screenshot",
-  postsPerPage: 8,
+  postsPerPage: 10,
   showDate: false,
 }

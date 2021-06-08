@@ -1,0 +1,86 @@
+---
+title: Reverse Linked List II
+excerpt: Given a linked list and numbers m and n, return it back with only positions m to n in reverse.
+number: 92
+difficulty: 'Medium'
+topic: 'Linked List'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/reverse-linked-list-ii/"
+  title="Reverse Linked List II - LeetCode" 
+  description="Given a linked list and numbers m and n, return it back with only positions m to n in reverse."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given a linked list and numbers m and n, return it back with only positions *m* to *n* in reverse.
+
+## The Constraints
+
+- Will *m* and *n* always be within the bounds of the linked list?
+    - Yes, assume 1 ≤ *m* ≤ *n* ≤ length of linked list.
+- Can we receive *m* and *n* values for the whole linked list?
+    - Yes, we can receive *m* = 1 and *n* = length of linked list.
+
+## Test Cases
+
+```
+Input: head = [1,2,3,4,5], left = 2, right = 4
+Output: [1,4,3,2,5]
+
+Input: head = [5], left = 1, right = 1
+Output: [5]
+
+Input: head = [3,5], left = 1, right = 1
+Output: [3,5]
+
+Input: head = [1,2,3,4,5], left = 1, right = 5
+Output: [5,4,3,2,1]
+```
+
+# Solution
+
+## Iterative Approach
+
+**Complexity Analysis**
+
+- Time complexity: <InlineMath math="O(n)" />
+- Space complexity: <InlineMath math="O(1)" />
+
+```typescript
+const reverseBetween = (
+  head: ListNode | null,
+  left: number,
+  right: number
+): (ListNode | null) => {
+  let position = 1;
+  let currentNode = head;
+  let start = head;
+
+  while (position < left) {
+    start = currentNode;
+    currentNode = currentNode.next;
+    position++;
+  }
+
+  let prev = null; // for reversing the list
+  let tail = currentNode;
+  while (position >= left && position <= right) {
+    const next = currentNode.next;
+    currentNode.next = prev;
+    prev = currentNode;
+    currentNode = next;
+    position++;
+  }
+  start.next = prev;
+  tail.next = currentNode;
+
+  if (left > 1) {
+    return head;
+  } else {
+    return prev;
+  }
+};
+```
