@@ -1,0 +1,48 @@
+---
+title: Reverse Linked List
+excerpt: Given the head of a singly linked list, reverse the list, and return the reversed list.
+number: 206
+difficulty: 'Easy'
+topic: 'Linked List'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/reverse-linked-list/"
+  title="Reverse Linked List - LeetCode" 
+  description="Given the head of a singly linked list, reverse the list, and return the reversed list."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given the `head` of a singly linked list, reverse the list, and return the reversed list.
+
+## The Constraints
+
+- What do we return if we get null or a single node?
+  - Just return null and the node back respectively.
+
+# Solution
+
+## Iterative Approach
+
+**Complexity Analysis**
+
+- Time complexity: <InlineMath math="O(n)" />
+- Space complexity: <InlineMath math="O(1)" />
+
+```jsx
+const reverseLinkedList = (head) => {
+  let prev = null;
+  let current = head;
+
+  while (current) {
+    let next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+  }
+  
+  return prev;
+};
+```
