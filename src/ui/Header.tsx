@@ -10,7 +10,7 @@ const Header = () => (
         {config.title}
       </Heading>
       {/* <Title>{config.title}</Title> */}
-      <Heading sx={{ fontSize: 2, pb: 3, px: [3, 4] }}>{config.subtitle}</Heading>
+      <Heading sx={{ fontSize: 2, pb: 3, px: [3, 4], fontWeight: 400 }}>{config.subtitle}</Heading>
       <Nav />
     </Box>
   </MDXProvider>
