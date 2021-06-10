@@ -1,0 +1,76 @@
+---
+title: Valid Parentheses
+excerpt: Given a string containing only parentheses, "(, ), {, }, [, ]", determine if the input string is valid.
+number: 20
+difficulty: 'Easy'
+topic: 'Stack'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/valid-parentheses/"
+  title="Valid Parentheses - LeetCode" 
+  description='Given a string containing only parentheses, "(, ), {, }, [, ]", determine if the input string is valid.'
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given a string containing only parentheses, `'('`, `')'`, `'{'`, `'}'`, `'['` and `']'`, determine if the input string is valid. 
+
+The string is valid if:
+1. Open brackets must be closed by the same type of brackets.
+2. Open brackets must be closed in the correct order.
+
+## Test Cases
+
+```javascript
+"{([])}" -> valid
+"" -> valid
+"()[]{}" -> valid
+"{[]()}" -> valid
+
+"{([])]" -> invalid
+"{([)]}" -> invalid
+"{([" -> invalid
+```
+
+# Solution
+
+## Using Stack
+
+If current character is an open bracket `'('`, we push its corresponding closed bracket `')'` to the stack, and we move on.
+
+If current character is a closed bracket instead, we then compare it to the latest item in the stack to see if they are the same. If they are the same `')' === ')'`, it means that the previous character (the character before the current closed bracket) is an open bracket for the current closed bracket, `'()'`. The last item pops off the stack and we move on.
+
+At any iteration, if any open-closed bracket pair doesn't match, such as `'[}'`, we stop and return `false`.
+
+**Complexity Analysis**
+
+- Time complexity: <InlineMath math="O(n)" />
+- Space complexity: <InlineMath math="O(n)" />
+
+```typescript
+const parens = {
+  '(': ')',
+  '[': ']',
+  '{': '}',
+};
+
+function isValid(s: string): boolean {  
+  if (s.length === 0) return true;
+
+  const stack = [];
+
+  for (let i = 0; i < s.length; i++) {
+    if (parens[s[i]]) {
+      stack.push(parens[s[i]]);
+    } else {
+      if (stack.pop() !== s[i]) {
+        return false;
+      };
+    }
+  }
+
+  return stack.length === 0;
+};
+```
