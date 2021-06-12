@@ -1,0 +1,65 @@
+---
+title: Minimum Remove to Make Valid Parentheses
+excerpt: Given a string only containing round brackets and lowercase characters, remove the least amount of brackets so the string is valid and return any valid string.
+number: 1249
+difficulty: 'Medium'
+topic: 'Stack'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/"
+  title="Minimum Remove to Make Valid Parentheses - LeetCode" 
+  description="Given a string only containing round brackets and lowercase characters, remove the least amount of brackets so the string is valid and return any valid string."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Given a string only containing round brackets `'('` and `')'` and lowercase characters, remove the least amount of brackets so the string is valid and return **any** valid string.
+
+A string is considered valid if it is empty or if there are brackets, they all close.
+
+Formally, a *parentheses string* is valid if and only if:
+
+- It is the empty string, contains only lowercase characters, or
+- It can be written as `AB` (`A` concatenated with `B`), where `A` and `B` are valid strings, or
+- It can be written as `(A)`, where `A` is a valid string.
+
+## Test Cases
+
+```jsx
+"a(bc(d)" -> "abc(d)" or "a(bcd)", remove 1
+")(" -> "", remove 2
+```
+
+# Solution
+
+## Using Stack
+
+**Complexity Analysis**
+
+- Time complexity: <InlineMath math="O(n)" />
+- Space complexity: <InlineMath math="O(n)" />
+
+```typescript
+function minRemoveToMakeValid(s: string): string {
+  const arr = s.split('');
+  const stack = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === '(') {
+      stack.push(i);
+    } else if (arr[i] === ')') {
+      if (stack.length === 0) {
+        arr[i] = '';
+      } else {
+        stack.pop();
+      }
+    }
+  }
+  
+  while (stack.length) {
+    arr[stack.pop()] = '';
+  }
+  return arr.join('');
+}
+```
