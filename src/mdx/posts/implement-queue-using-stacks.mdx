@@ -1,0 +1,79 @@
+---
+title: Implement Queue using Stacks
+excerpt: Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue.
+number: 232
+difficulty: 'Easy'
+topic: 'Stack'
+---
+
+<LeetCodeLink 
+  link="https://leetcode.com/problems/implement-queue-using-stacks/"
+  title="Implement Queue using Stacks - LeetCode" 
+  description="Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue."
+/>
+<div style={{padding: '15px'}}></div>
+
+# Problem
+
+Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (`push`, `peek`, `pop`, and `empty`).
+
+# Solution
+
+## Two Stacks
+
+**Complexity Analysis**
+
+> The queue itself takes up <InlineMath math="O(n)" />  space.
+
+Push/Enqueue
+
+- Time complexity: <InlineMath math="O(1)" />
+
+Pop/Dequeue
+
+- Time complexity: <InlineMath math="O(n)" />
+
+Peek
+
+- Time complexity: <InlineMath math="O(n)" />
+
+Empty
+
+- Time complexity: <InlineMath math="O(1)" />
+
+```typescript
+class MyQueue {
+  in: number[];
+  out: number[];
+  constructor() {
+    this.in = [];
+    this.out = [];
+  }
+
+  push(x: number): void {
+    this.in.push(x); 
+  }
+
+  pop(): number {
+    if (this.out.length === 0) {
+      while (this.in.length) {
+        this.out.push(this.in.pop());
+      }
+    }
+    return this.out.pop();
+  }
+
+  peek(): number {
+    if (this.out.length === 0) {
+      while (this.in.length) {
+        this.out.push(this.in.pop());
+      }
+    }
+    return this.out[this.out.length-1];
+  }
+
+  empty(): boolean {
+    return !this.out.length && !this.in.length;
+  }
+}
+```
