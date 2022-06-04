@@ -1,1 +1,2 @@
-# Personal LeetCode Notes
+# Data Structures & Algorithms
+Notebook on Data Structures & Algorithms

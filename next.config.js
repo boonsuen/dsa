@@ -1,16 +1,15 @@
 const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+    providerImportSource: "@mdx-js/react",
+  },
 });
 
 module.exports = withMDX({
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  webpack: (config, { isServer }) => {
-    // Fixes npm packages (mdx) that depend on `fs` module
-    if (!isServer) {
-      config.node = {
-        fs: 'empty',
-      };
-    }
-    return config;
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  compiler: {
+    styledComponents: true,
   },
 });
