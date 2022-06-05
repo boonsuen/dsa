@@ -1,17 +1,22 @@
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import styled from 'styled-components';
+import CodeBlock from '../ui/CodeBlock';
 
 const StyledDocContent = styled.div`
   height: calc(100% - 20px);
   margin: 0;
+  padding: 20px 20px 64px 30px;
   min-width: 600px;
   overflow: hidden;
   overflow-y: scroll;
-  padding: 20px 20px 0 30px;
   scrollbar-width: none;
   text-align: left;
   transition: 0.2s;
   width: 75%;
+`;
+
+const Heading = styled.h1`
+  font-size: 40px;
 `;
 
 export type Doc = {
@@ -28,15 +33,13 @@ type DocContentProps = {
 };
 
 const components = {
-
+  pre: CodeBlock,
 };
 
-const DocContent: React.FC<DocContentProps> = ({ doc, mdxSource }) => {
-  console.log(doc, mdxSource);
-  
+const DocContent: React.FC<DocContentProps> = ({ doc, mdxSource }) => {  
   return (
     <StyledDocContent>
-      <h1>{doc.meta.title}</h1>
+      <Heading>{doc.meta.title}</Heading>
       <MDXRemote {...mdxSource} components={components} />
     </StyledDocContent>
   );

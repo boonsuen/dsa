@@ -1,4 +1,5 @@
 import { GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import rehypeKatex from 'rehype-katex';
@@ -16,13 +17,23 @@ type DocPageProps = {
 
 const DocPage: React.FC<DocPageProps> = ({ doc, mdxSource }) => {
   return (
-    <Layout
-      docTitle={config.docTitle}
-      description={config.description}
-      url={config.url}
-    >
-      <DocsLayout doc={doc} mdxSource={mdxSource} />
-    </Layout>
+    <>
+      <Head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.15.6/dist/katex.min.css"
+          integrity="sha384-ZPe7yZ91iWxYumsBEOn7ieg8q/o+qh/hQpSaPow8T6BwALcXSCS6C6fSRPIAnTQs"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <Layout
+        docTitle={config.docTitle}
+        description={config.description}
+        url={config.url}
+      >
+        <DocsLayout doc={doc} mdxSource={mdxSource} />
+      </Layout>
+    </>
   );
 };
 
@@ -48,7 +59,7 @@ export const getStaticProps: GetStaticProps = async (
   });
 
   console.log(doc, mdxSource);
-  
+
   return {
     props: { doc, mdxSource },
   };

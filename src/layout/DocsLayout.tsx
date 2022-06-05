@@ -1,4 +1,5 @@
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import Head from 'next/head';
 import styled from 'styled-components';
 import Sidebar from '../ui/Sidebar';
 import DocContent, { Doc } from '../views/DocContent';
@@ -9,8 +10,8 @@ const StyledDocsLayout = styled.div`
   justify-content: center;
   margin: 0 auto;
   max-width: 1080px;
-  padding: 0 10px 0;
-  transition: .2s;
+  padding: 0 10px 0 10px;
+  transition: 0.2s;
 `;
 
 type DocsLayoutProps = {
@@ -20,11 +21,21 @@ type DocsLayoutProps = {
 
 const DocsLayout: React.FC<DocsLayoutProps> = ({ doc, mdxSource }) => {
   return (
-    <StyledDocsLayout>
-      <Sidebar />
-      <DocContent doc={doc} mdxSource={mdxSource} />
-    </StyledDocsLayout>
+    <>
+      {doc.meta.canonical_url && (
+        <Head>
+          <link
+            rel="canonical"
+            href={doc.meta.canonical_url}
+          />
+        </Head>
+      )}
+      <StyledDocsLayout>
+        <Sidebar />
+        <DocContent doc={doc} mdxSource={mdxSource} />
+      </StyledDocsLayout>
+    </>
   );
-}
+};
 
 export default DocsLayout;

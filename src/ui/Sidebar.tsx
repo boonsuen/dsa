@@ -9,11 +9,12 @@ const StyledSidebar = styled.aside`
   min-width: 220px;
   overflow: hidden;
   overflow-y: scroll;
-  padding: 10px 15px;
+  padding: 10px 15px 64px 15px;
   scrollbar-width: none;
   text-align: left;
   transition: 0.2s;
   width: 25%;
+  border-right: 1px solid rgb(237, 242, 247);
 
   ul {
     padding: 0;

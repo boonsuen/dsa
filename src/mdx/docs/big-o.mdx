@@ -1,0 +1,229 @@
+---
+title: Big O Notation
+canonical_url: https://dev.to/wnxn/introduction-to-big-o-notation-and-time-complexity-in-javascript-2m5j
+---
+
+# Table of Contents
+1. What's Big O
+2. Time Complexity
+3. Rules of Big O
+4. Summary
+
+# What's Big O?
+
+Big O notation and time complexity are fundamental concepts in computer science.
+
+Big O is a way of describing the efficiency of algorithms without getting too mired in the details. It describes how the time (or the number of operations needed) it takes to run grows as the size of the input grows.
+
+- Big O notation helps us answer the question, "How do our functions or algorithms behave/scale when the size of the inputs increases significantly?"
+
+The idea here is that we care about things with a difference in an order of magnitude. For example, given the same amount of inputs, I don't really care if my algorithm runs for 100ms versus 105ms, we care if it runs for 100ms vs 10 seconds (a large, noticeable difference).
+
+When measuring Big O, we just take the important stuff. For example, O(4+2n) can just be simplified to O(n), we can take away the 'minor details' such as the constant + 4 and even the coefficient, which don't make a lot of difference when things are in large scale. 
+
+I like to think of Big O as a tool in the back of my mind that helps me grasp the "Big Picture", giving an idea of how efficient the code or algorithms are.
+
+---
+<figure>
+  <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/articles/vgjoxb9gdq6dvyqaq2wp.png" style={{ width: '100%' }} />
+  <figcaption align="center">Big-O Complexity Chart from [Big-O Cheat Sheet](https://www.bigocheatsheet.com/)</figcaption>
+</figure>
+<br />
+
+# Time complexity
+
+Time complexity is a way of showing how the runtime of a function increases as the size of the input increases. It describes the amount of computer time it takes to run a function.
+
+There are many different types of time complexity and these are some of them.
+
+- Constant time, O(1) - If we are doing things that only require one step or when there are no loops, then the complexity is O(1).
+- Linear time, O(n) - Loops such as for loops and while loops, something that causes the runtime to increase at magnitude proportional to the input size. E.g. an array of 100 items results in 100 loops.
+- Quadratic time, O(n²) - Two nested loops of the same input. Similarly, if we have three nested loops, then the time complexity is cubic time, O(n³).
+    - Example algorithms with quadratic time: **Bubble sort**, **Insertion sort**
+- Logarithmic time, O(log n) - When a divide-and-conquer strategy is used, it's said to be O(log n). In logarithmic time, the increase in time decreases as the input increases.
+    - Example algorithms with logarithmic time: **Binary search**
+- Factorial time, O(n!) - It's the most expensive one. We are adding a nested loop for every elements.
+
+---
+There are some basic rules to remember when considering the Big O for an algorithm or code.
+
+## Rules of Big O
+
+1. Worst Case
+2. Remove Constants
+3. Different Terms for Different Inputs
+4. Drop Non-Dominant Terms
+
+### **Rule 1: Worst Case**
+
+Always consider the worst-case scenario. Even if the loop breaks earlier, it does not matter, we always take the Big O in the worst-case scenario. We can't just assume that things are always going well, even though sometimes our function can just run for an O(1). As shown in the example below, sometimes the item we want is located at the index of 0, and we finish off early, but it's still considered as O(n).
+
+```jsx
+const carArr = ['Honda', 'BMW', 'Audi', 'Toyota', 'Proton', 'Nissan', 'Mazda'];
+
+function findCar(array, car) {
+    for (let i = 0; i < array.length; i++) {
+      console.log('running');
+      if (array[i] === car) {
+          console.log(`Found ${car}`);
+          break;
+      }
+    }
+}
+
+findCar(carArr, 'Honda'); // Still O(n), even though it just took 1 iteration.
+```
+
+### **Rule 2: Remove Constants**
+
+In this example, we are creating an input with a length we've defined (10), and pass it to the function. Inside the function, we create an array called `meaningLessArr` with a length based on the input argument. We have two console.log and a loop to loop for two times the length of the input. 
+
+Variable assignment of `meaningLessArr` is ignored in this example but it doesn't matter much because, in the end, our goal is to remove the constants.
+
+```jsx
+const removeConstantsExample = (arrInput) => {
+  const meaningLessArr = Array.from({
+    length: arrInput.length,
+  }).fill("😄"); // O(n)
+  console.log(meaningLessArr); // O(1)
+  console.log(meaningLessArr.length); // O(1)
+
+  // Run for double the times
+  for (let i = 0; i < arrInput.length * 2; i++) {
+    console.log(`i is ${i}`); // O(2n)
+  }
+};
+
+const input = Array.from({ length: 10 });
+removeConstantsExample(input); // O(n + 2 + 2n)
+```
+
+- O(3n + 2) is simplified to O(3n + 1). This is because O(any constant) is simplified to O(1). O(2) is simplified to O(1), O(100) → O(1), O(3333) → O(1), and so on.
+- O(3n + 1) is then simplified to O(n + 1) by removing the coefficient. The key here is that, whether it is 3n, or 4n, or 5n, they are all **linear**, we can simplify them to just n. We do not particularly care about ***how steep the line is***, we care about ***how it increases***, is it increasing linearly, exponentially, or what.
+- And finally, it is simplified to O(n) after dropping the constant 1, as 1 does not have an effect when the input is large.
+
+### **Rule 3: Different Terms for Different Inputs**
+
+When we have multiple inputs or multiple arguments, we give a unique term for each of them, as they are separate inputs with different sizes. In other words, the complexity depends on two independent factors. In the example below, n and m represent the sizes of two different inputs.
+
+```jsx
+const logTwoArrays = (arr1, arr2) => {
+  arr1.forEach(item => {
+    console.log(item);
+  });
+
+  arr2.forEach(item => {
+    console.log(item);
+  });
+};
+// ^ The Big O is O(n + m)
+```
+
+Let's look at another example with nested loops. We have two similar functions that do similar things. The difference is that the `makeTuples()` takes one argument while `makeTuplesTwo()` takes two arguments. Thus, we can say that `makeTuples()` depends on **one** independent factor while `makeTuplesTwo()` depends on two independent factors.
+
+```jsx
+const nums = [1,2,3];
+const emojis = ['😄', '🚗'];
+
+const makeTuples = (arr) => {
+  let tuples = [];
+  arr.forEach(firstItem => {
+    arr.forEach(secondItem => {
+      tuples.push([firstItem, secondItem]);
+    });
+  });
+  return tuples;
+};
+
+console.log(makeTuples(nums));
+// [
+//   [1, 1], [1, 2], [1, 3],
+//   [2, 1], [2, 2], [2, 3],
+//   [3, 1], [3, 2], [3, 3],
+// ]
+// ^ For this example, it's O(n^2) - Quadratic Time
+
+const makeTuplesTwo = (arr1, arr2) => {
+  let answer = [];
+  arr1.forEach(firstItem => {
+    arr2.forEach(secondItem => {
+      answer.push([firstItem, secondItem]);
+    });
+  });
+  return answer;
+};
+
+console.log(makeTuplesTwo(nums, emojis));
+// [
+//   [1, '😄'], [1, '🚗'],
+//   [2, '😄'], [2, '🚗'],
+//   [3, '😄'], [3, '🚗']
+// ]
+// This example would be O(n•m)
+```
+
+Let's do a quick exercise! What's the Big O for the function below?
+
+```jsx
+const nums = [1,2,3];
+const emojis = ['😄', '🚗'];
+
+const logFirstArrThenMakeTuples = (arr1, arr2) => {
+  arr1.forEach(item => {
+    console.log(item);
+  });
+
+  let answer = [];
+  arr1.forEach(firstItem => {
+    arr2.forEach(secondItem => {
+      answer.push([firstItem, secondItem]);
+    });
+  });
+  return answer;
+};
+
+console.log(logFirstArrThenMakeTuples(nums, emojis));
+// 1 2 3
+// [
+//   [1, '😄'], [1, '🚗'],
+//   [2, '😄'], [2, '🚗'],
+//   [3, '😄'], [3, '🚗']
+// ]
+```
+
+The answer is O(n + nm)! Even better, we can say it is O(nm). This is because we can simplify things here. By expressing O(n + nm) as O(n(1+m)), we can now see the 1+m. 1+m can be simplified to just m. Therefore, after the simplification, we get O(nm).
+
+Here are some great threads to dive deep about O(m+n) and O(nm):
+- [Is O(mn) considered "linear" or "quadratic" growth?](https://cs.stackexchange.com/questions/9523/is-omn-considered-linear-or-quadratic-growth)
+- [Difference between O(m+n) and O(mn)?](https://stackoverflow.com/questions/23896399/difference-between-omn-and-omn)
+
+Precise definition of Big O:
+- [big-O notation](https://xlinux.nist.gov/dads/HTML/bigOnotation.html)
+
+### Rule 4: Drop Non-Dominant Terms
+
+Actually, if you understand the concept of simplification like simplifying O(n+nm) to become O(nm) in the exercise above, then you probably already understand this rule. It's basically the same idea.
+
+Again, if we have something like $O(n^2 + n)$, it can be simplified to $O(n^2)$ by dropping the + n. 
+
+$
+ O(n^2 + n) → O[n(n + 1)] → O(n^2)
+$
+
+Or we can imagine when n is large, then the + n probably does not give a lot of effects. In this case, n² is the **dominant term**, the **big and important term**, while + n is not. We ignore the little parts and focus on the big parts. 
+
+For equation $2x² + x + 30$, let's try plugging in some numbers.
+
+- Plug in 3, we get 18 + 3 + 30.
+- Plug in 10, we get 200 + 10 + 30.
+- Plug in 500, we get 500000 + 500 + 30.
+- Plug in 100000, we get 20,000,000,000 + 100000 + 30.
+
+The Big O for this mathematic equation would be $O(n^2)$. Not only we can remove the constant and coefficient by applying the rule we learned before, we can also drop the + x as this term is not the 'big' one.
+
+Essentially, $x^2$ is the one that contributes to the huge gap so we take it as the Big O.
+
+# Summary
+
+- Big O does not matter a lot when inputs are not sufficiently large. If a function is written to only accept a fixed small amount of data, then we don't particularly care about the time & space complexity in this case. Also in some scenarios, for example, O(n) might be more efficient than O(1) depending on the inputs.
+- Everything comes at a cost. Sometimes writing efficient code results in code that is hard to read, and vice versa. The goal is to strike a balance between code efficiency and readability, depending on problems and situations.

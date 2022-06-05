@@ -13,7 +13,6 @@ const DocHead = (props: DocHeadProps) => (
   <Head>
     <title>{props.docTitle}</title>
     <link rel="icon" href="/img/favicon.svg" />
-    <link rel="canonical" href={props.url} />
     <meta name="description" content={props.description} />
     <meta property="og:title" content={props.docTitle} />
     <meta property="og:description" content={props.description} />
