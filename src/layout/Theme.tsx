@@ -1,4 +1,4 @@
-export default {
+export const theme = {
   useCustomProperties: true,
   useColorSchemeMediaQuery: true,
   fonts: {

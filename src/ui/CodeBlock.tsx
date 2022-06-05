@@ -64,7 +64,7 @@ const CodeBlock = ({
   children,
   className,
 }: {
-  children: string;
+  children: any;
   className: string;
 }) => {
   const language = className
@@ -74,7 +74,7 @@ const CodeBlock = ({
   return (
     <Highlight
       {...defaultProps}
-      code={children.replace(/\n$/, '')}
+      code={children.props.children.replace(/\n$/, '')}
       language={language as Language}
       theme={nightOwl}
     >

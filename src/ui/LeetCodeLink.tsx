@@ -1,4 +1,10 @@
-const LeetCodeLink = ({ link, title, description }) => (
+export type LeetCodeLinkProps = {
+  link: string;
+  title: string;
+  description: string;
+}
+
+const LeetCodeLink: React.FC<LeetCodeLinkProps> = ({ link, title, description }) => (
   <a
     target="_blank"
     rel="noopener noreferrer"

@@ -1,25 +1,26 @@
-import { useRouter } from "next/router"
-import { Box } from "theme-ui"
-import NavLink from "./NavLink"
+import styled from 'styled-components';
+import Link from 'next/link';
+import { theme } from '../layout/Theme';
 
-const Nav = (props) => {
-  const router = useRouter()
+const StyledNav = styled.nav`
+  a {
+    margin: 0 12px;
+    color: rgb(96, 103, 112);
+    transition: color 200ms cubic-bezier(0.08,0.52,0.52,1);
+
+    &:hover {
+      color: ${theme.colors.primary};
+    }
+  }
+`;
+
+const Nav: React.FC = () => {
   return (
-    <Box
-      as="nav"
-      sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}
-    >
-      <NavLink
-        href="/"
-        active={router.pathname === "/" || router.pathname.includes("/blog")}
-      >
-        Home
-      </NavLink>
-      <NavLink href="/about" active={router.pathname === "/about"}>
-        About
-      </NavLink>
-    </Box>
-  )
-}
+    <StyledNav>
+      <Link href="/">Home</Link>
+      <Link href="/leetcode">LeetCode</Link>
+    </StyledNav>
+  );
+};
 
-export default Nav
+export default Nav;
