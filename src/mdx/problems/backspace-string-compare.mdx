@@ -11,7 +11,6 @@ topic: 'String'
   title="Backspace String Compare - LeetCode"
   description="Given two strings S and T, return if they equal when both are typed out. Any '#' that appears in the string counts as a backspace."
 />
-<div style={{ padding: '15px' }}></div>
 
 # Problem
 
@@ -19,7 +18,7 @@ Given two strings S and T, return if they equal when both are typed out. Any '#'
 
 `"ab#d" → "ad"`
 
-## The Constraints
+## Constraints
 
 - What happens when two #'s appear beside each other?
     - Delete the two values before the first #.
@@ -36,8 +35,8 @@ Given two strings S and T, return if they equal when both are typed out. Any '#'
 
 **Complexity Analysis**
 
-- Time complexity: <InlineMath math="O(n + m)" />
-- Space complexity: <InlineMath math="O(n + m)" />
+- Time complexity: $O(n + m)$
+- Space complexity: $O(n + m)$
 
 ```jsx
 // My first try using reduce method
@@ -88,12 +87,12 @@ const backspaceCompare = (s, t) => {
 
 ## Two Pointers Approach
 
-With two pointer technique (deciding when to move the pointers and what to do on each interaction), we can bring down the space complexity to <InlineMath math="O(1)" />.
+With two pointer technique (deciding when to move the pointers and what to do on each interaction), we can bring down the space complexity to $O(1)$.
 
 **Complexity Analysis**
 
-- Time complexity: <InlineMath math="O(n + m)" />
-- Space complexity: <InlineMath math="O(1)" />
+- Time complexity: $O(n + m)$
+- Space complexity: $O(1)$
 
 ```jsx
 const backspaceCompare = function (s, t) {

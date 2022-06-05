@@ -14,6 +14,7 @@ const LeetCodeLink: React.FC<LeetCodeLinkProps> = ({ link, title, description })
       textDecoration: 'none',
       flexGrow: 1,
       minWidth: '0px',
+      margin: '24px 0'
     }}
   >
     <div

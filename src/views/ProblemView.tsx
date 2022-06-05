@@ -5,6 +5,7 @@ import LeetCodeLink, { LeetCodeLinkProps } from '../ui/LeetCodeLink';
 import CodeBlock from '../ui/CodeBlock';
 import Link from 'next/link';
 import { theme } from '../layout/Theme';
+import Blockquote from '../ui/Blockquote';
 
 const Container = styled.div`
   width: 90%;
@@ -47,6 +48,7 @@ const ProblemView: React.FC<ProblemViewProps> = ({ problem, source }) => {
   const components = {
     LeetCodeLink: (props: LeetCodeLinkProps) => <LeetCodeLink {...props} />,
     pre: CodeBlock,
+    blockquote: Blockquote
   };
 
   return (
@@ -60,9 +62,9 @@ const ProblemView: React.FC<ProblemViewProps> = ({ problem, source }) => {
             stroke="currentColor"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
               d="M9 5l7 7-7 7"
             ></path>
           </svg>
