@@ -9,8 +9,8 @@ const StyledDocsLayout = styled.div`
   align-items: flex-start;
   justify-content: center;
   margin: 0 auto;
-  max-width: 1080px;
-  padding: 0 10px 0 10px;
+  width: 90%;
+  max-width: 1126px;
   transition: 0.2s;
 `;
 

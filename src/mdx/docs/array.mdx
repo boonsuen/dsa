@@ -1,5 +1,64 @@
 ---
 title: Array
 ---
-# Operations
-- Insert
+Array is a linear data structure and there are static and dynamic arrays. 
+The main difference between static and dynamic arrays is that the size of a static array is fixed 
+while the size of a dynamic array can be changed at time of execution of program. 
+
+# Time Complexity
+- Lookup: $O(1)$
+- Push: $O(1)$ *can be $O(n)$ for dynamic arrays
+- Insert: $O(n)$
+- Delete: $O(n)$
+
+# Implementing an Array in JS
+```typescript
+class MyArray {
+  length: number;
+  data: {[key: number]: any};
+
+  constructor() {
+    this.length = 0;
+    this.data = {};
+  }
+
+  get(index: number) {
+    return this.data[index];
+  }
+
+  push(item: any) {
+    this.data[this.length] = item;
+    this.length++;
+    return this.length;
+  }
+
+  pop() {
+    const lastItem = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return lastItem;
+  }
+
+  delete(index: number) {
+    const item = this.data[index];
+    this.shiftItems(index);
+    return item;
+  }
+
+  shiftItems(index: number) {
+    for (let i = index; i < this.length - 1; i++) {
+      this.data[i] = this.data[i+1];
+    }
+    delete this.data[this.length - 1];
+    this.length--;
+  }
+}
+
+// Usage
+const newArray = new MyArray();
+newArray.push('first');
+newArray.push('second');
+newArray.push('third');
+newArray.delete(0);
+console.log(newArray);
+```
