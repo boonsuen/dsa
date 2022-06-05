@@ -44,6 +44,7 @@ const StyledSidebar = styled.aside`
     &.active {
       background-color: rgb(237, 242, 247);
       color: #000;
+      font-weight: 600;
     }    
   }
 `;
