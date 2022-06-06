@@ -42,7 +42,7 @@ const Footer: React.FC = () => (
   <StyledFooter>
     <LinksContainer>
       <GitHubLink
-        href="https://github.com/boonsuen/leetcode"
+        href="https://github.com/boonsuen/dsa"
         title="Go to the GitHub repository"
         target="_blank"
         rel="noopener noreferrer"

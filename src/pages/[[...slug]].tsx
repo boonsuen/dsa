@@ -58,8 +58,6 @@ export const getStaticProps: GetStaticProps = async (
     scope: {},
   });
 
-  console.log(doc, mdxSource);
-
   return {
     props: { doc, mdxSource },
   };
