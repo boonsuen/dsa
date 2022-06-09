@@ -119,3 +119,21 @@ class Solution {
     }
 };
 ```
+
+### Go Code
+```go
+func twoSum(nums []int, target int) []int {
+  numsMap := map[int] int{}
+  
+  for p := 0; p < len(nums); p++ {
+    currentMapVal, found := numsMap[nums[p]]
+    if found {
+      return []int{currentMapVal, p}
+    } else {
+      numsMap[target - nums[p]] = p
+    }
+  }
+  
+  return nil
+}
+```
