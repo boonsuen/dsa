@@ -60,15 +60,9 @@ type Language =
   | 'wasm'
   | 'yaml';
 
-const CodeBlock = ({
-  children,
-  className,
-}: {
-  children: any;
-  className: string;
-}) => {
-  const language = className
-    ? className.replace(/language-/, '')
+const CodeBlock = ({ children }: { children: any }) => {
+  const language = children.props.className
+    ? children.props.className?.replace('language-', '').trim()
     : 'javascript';
 
   return (
